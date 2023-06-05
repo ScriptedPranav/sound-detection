@@ -44,7 +44,9 @@ const App: React.FC = () => {
             barHeight = dataArray[i];
 
             const hue = (i / bufferLength) * 360;
-            canvasCtx.fillStyle = `hsl(${hue}, 100%, 50%)`;
+            const saturation = 100;
+            const lightness = barHeight / 2;
+            canvasCtx.fillStyle = `hsl(${hue}, ${saturation}%, ${lightness}%)`;
             canvasCtx.fillRect(x, HEIGHT - barHeight / 2, barWidth, barHeight / 2);
 
             x += barWidth + 1;
@@ -75,12 +77,12 @@ const App: React.FC = () => {
   };
 
   return (
-    <div>
-      <h1>Sound Detection App</h1>
-      <button onClick={toggleListening}>
+    <div className="container">
+      <h1 className="heading">Sound Detection App</h1>
+      <button className={`listen-btn ${isListening ? 'active' : ''}`} onClick={toggleListening}>
         {isListening ? 'Stop Listening' : 'Start Listening'}
       </button>
-      <canvas ref={canvasRef} width={800} height={200}></canvas>
+      <canvas ref={canvasRef} className="visualizer" width={800} height={200}></canvas>
     </div>
   );
 };
