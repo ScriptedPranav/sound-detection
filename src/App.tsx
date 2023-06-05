@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 
 const App: React.FC = () => {
   const [isListening, setIsListening] = useState(false);
+  const [noiseLevel, setNoiseLevel] = useState(0);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const audioContextRef = useRef<AudioContext | null>(null);
 
@@ -53,6 +54,9 @@ const App: React.FC = () => {
             x += barWidth + 1;
           }
 
+          const average = [...dataArray].reduce((a, b) => a + b, 0) / bufferLength;
+          setNoiseLevel(average);
+
           requestAnimationFrame(draw);
         };
 
@@ -79,11 +83,35 @@ const App: React.FC = () => {
 
   return (
     <div className="container">
-      <h1 className="heading">Noise Detection App</h1>
+      <h1 className="heading">Noise Tracker App</h1>
       <button className={`listen-btn ${isListening ? 'active' : ''}`} onClick={toggleListening}>
         {isListening ? 'Stop Listening' : 'Start Listening'}
       </button>
       <canvas ref={canvasRef} className="visualizer" width={800} height={200}></canvas>
+      <div className="progress-container">
+        <svg className="progress-svg" viewBox="0 0 100 100">
+          <circle
+            className="progress-background"
+            cx="50"
+            cy="50"
+            r="45"
+          />
+          <circle
+            className="progress-bar"
+            cx="50"
+            cy="50"
+            r="45"
+            strokeDasharray={`${noiseLevel} 100`}
+          />
+          {noiseLevel >= 80 && (
+            <>
+              <circle className="progress-warning" cx="50" cy="50" r="40" />
+              <text className="warning-icon-text" x="50" y="55">⚠️</text>
+            </>
+          )}
+        </svg>
+        <div className="progress-label">{Math.round(noiseLevel)}%</div>
+      </div>
     </div>
   );
 };

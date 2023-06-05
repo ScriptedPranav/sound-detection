@@ -47,16 +47,80 @@ body {
   height: 200px;
 }
 
-@media only screen and (max-width: 600px) {
+.progress-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 1rem;
+}
+
+.progress-svg {
+  width: 120px;
+  height: 120px;
+}
+
+.progress-background {
+  fill: transparent;
+  stroke: #353535;
+  stroke-width: 10;
+}
+
+.progress-bar {
+  fill: transparent;
+  stroke: #009dff;
+  stroke-width: 10;
+  stroke-dashoffset: 25;
+  stroke-linecap: round;
+  transform: rotate(-90deg);
+  transform-origin: 50% 50%;
+  transition: stroke-dasharray 0.3s ease;
+}
+
+.progress-warning {
+  fill: #ff003c;
+  opacity: 0.5;
+}
+
+.warning-icon-text {
+  font-size: 2rem;
+  fill: #fff;
+  text-anchor: middle;
+}
+
+.progress-label {
+  margin-top: 0.5rem;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #009dff;
+  font-family: 'Arial', sans-serif;
+}
+
+/* Mobile Responsive Styles */
+@media (max-width: 480px) {
   .heading {
     font-size: 2rem;
   }
 
   .listen-btn {
-    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
   }
 
   .visualizer {
+    margin-top: 1rem;
     height: 150px;
+  }
+
+  .progress-svg {
+    width: 90px;
+    height: 90px;
+  }
+
+  .warning-icon-text {
+    font-size: 1.5rem;
+  }
+
+  .progress-label {
+    margin-top: 0.3rem;
+    font-size: 1.2rem;
   }
 }
