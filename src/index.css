@@ -16,6 +16,7 @@ body {
   font-family: 'Poppins', sans-serif;
   font-size: 3rem;
   background: linear-gradient(to right, #00eaeaff, #009dff);
+  background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   margin-bottom: 1rem;

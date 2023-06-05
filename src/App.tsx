@@ -12,7 +12,7 @@ const App: React.FC = () => {
         await audioContextRef.current.resume();
         setIsListening(true);
 
-        const mediaDevices = navigator.mediaDevices as any;
+        const mediaDevices = navigator.mediaDevices;
         const stream = await mediaDevices.getUserMedia({ audio: true });
         const source = audioContextRef.current.createMediaStreamSource(stream);
 
@@ -24,7 +24,8 @@ const App: React.FC = () => {
         source.connect(analyser);
 
         const canvas = canvasRef.current;
-        const canvasCtx = canvas?.getContext('2d');
+        if (!canvas) return;
+        const canvasCtx = canvas.getContext('2d');
 
         const draw = () => {
           if (!isListening || !canvasCtx) return;
@@ -78,7 +79,7 @@ const App: React.FC = () => {
 
   return (
     <div className="container">
-      <h1 className="heading">Sound Detection App</h1>
+      <h1 className="heading">Noise Detection App</h1>
       <button className={`listen-btn ${isListening ? 'active' : ''}`} onClick={toggleListening}>
         {isListening ? 'Stop Listening' : 'Start Listening'}
       </button>
